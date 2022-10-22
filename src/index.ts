@@ -158,8 +158,8 @@ export type {
     RxConflictHandler,
     RxConflictHandlerInput,
     RxConflictHandlerOutput,
-    RxConflictResolutionTask as RxConflictResolutionTask,
-    RxConflictResolutionTaskSolution as RxConflictResolutionTaskSolution,
+    RxConflictResolutionTask,
+    RxConflictResolutionTaskSolution,
     RxReplicationWriteToMasterRow,
 
     // stuff from the RxStorage replication
