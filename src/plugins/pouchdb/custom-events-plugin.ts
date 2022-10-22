@@ -99,7 +99,7 @@ const BULK_DOC_RUN_QUEUE: WeakMap<PouchDBInstance, Promise<any>> = new WeakMap()
 
 /**
  * PouchDB is like a minefield,
- * where stuff randomly does not work dependend on some conditions.
+ * where stuff randomly does not work depends on some conditions.
  * So instead of doing plain writes,
  * we hack into the bulkDocs() function
  * and adjust the behavior accordingly.
@@ -138,7 +138,7 @@ export function addCustomEventsPluginToPouch() {
         /**
          * PouchDB internal requests
          * must still be handled normally
-         * to decrease the likelyness of bugs.
+         * to decrease the likeliness of bugs.
          */
         const internalPouches = [
             '_replicator',
@@ -385,9 +385,9 @@ export function addCustomEventsPluginToPouch() {
              * is not possible to that that from pouch.bulkDocs().
              */
             const docIds: Set<string> = new Set(docs.map(d => d._id));
-            let heighestSequence = 0;
+            let highestSequence = 0;
             let changesSub: PouchChangesOnChangeEvent;
-            const heighestSequencePromise = new Promise<number>(res => {
+            const highestSequencePromise = new Promise<number>(res => {
                 changesSub = this.changes({
                     since: 'now',
                     live: true,
@@ -396,13 +396,13 @@ export function addCustomEventsPluginToPouch() {
                     const docId: string = change.id;
                     if (docIds.has(docId)) {
                         docIds.delete(docId);
-                        if (heighestSequence < change.seq) {
-                            heighestSequence = change.seq;
+                        if (highestSequence < change.seq) {
+                            highestSequence = change.seq;
                         }
 
                         if (docIds.size === 0) {
                             (changesSub as any).cancel();
-                            res(heighestSequence);
+                            res(highestSequence);
                         }
                     }
                 }) as any;
@@ -428,9 +428,9 @@ export function addCustomEventsPluginToPouch() {
                     } else {
                         return (async () => {
                             const hasError = result.find(row => (row as PouchWriteError).error);
-                            let heighestSequence = -1;
+                            let highestSequence = -1;
                             if (!hasError) {
-                                heighestSequence = await heighestSequencePromise;
+                                highestSequence = await highestSequencePromise;
                             } else {
                                 changesSub.cancel();
                             }
@@ -465,7 +465,7 @@ export function addCustomEventsPluginToPouch() {
                                         id: randomCouchString(10),
                                         events,
                                         checkpoint: {
-                                            sequence: heighestSequence
+                                            sequence: highestSequence
                                         },
                                         context: options.custom ? options.custom.context : 'pouchdb-internal'
                                     };

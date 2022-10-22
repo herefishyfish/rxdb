@@ -124,11 +124,11 @@ export const RxStoragePouchStatics: RxStorageStatics = {
      */
     prepareQuery<RxDocType>(
         schema: RxJsonSchema<RxDocumentData<RxDocType>>,
-        mutateableQuery: MangoQuery<RxDocType>
+        mutableQuery: MangoQuery<RxDocType>
     ): PreparedQuery<RxDocType> {
         return preparePouchDbQuery(
             schema,
-            mutateableQuery
+            mutableQuery
         );
     },
     checkpointSchema: POUCHDB_CHECKPOINT_SCHEMA
@@ -141,10 +141,10 @@ export const RxStoragePouchStatics: RxStorageStatics = {
  */
 export function preparePouchDbQuery<RxDocType>(
     schema: RxJsonSchema<RxDocumentData<RxDocType>>,
-    mutateableQuery: MangoQuery<RxDocType>
+    mutableQuery: MangoQuery<RxDocType>
 ): PreparedQuery<RxDocType> {
     const primaryKey = getPrimaryFieldOfPrimaryKey(schema.primaryKey);
-    const query = mutateableQuery;
+    const query = mutableQuery;
 
     /**
      * because sort wont work on unused keys we have to workaround
@@ -206,7 +206,7 @@ export function preparePouchDbQuery<RxDocType>(
     ) {
         throw newRxError('QU4', {
             path: primaryKey as any,
-            query: mutateableQuery
+            query: mutableQuery
         });
     }
 
@@ -238,8 +238,8 @@ export function preparePouchDbQuery<RxDocType>(
      * Set use_index
      * @link https://pouchdb.com/guides/mango-queries.html#use_index
      */
-    if (mutateableQuery.index) {
-        const indexMaybeArray = mutateableQuery.index;
+    if (mutableQuery.index) {
+        const indexMaybeArray = mutableQuery.index;
         let indexArray: string[] = isMaybeReadonlyArray(indexMaybeArray) ? indexMaybeArray : [indexMaybeArray];
         indexArray = indexArray.map(str => {
             if (str === primaryKey) {
@@ -249,8 +249,8 @@ export function preparePouchDbQuery<RxDocType>(
             }
         });
         const indexName = getPouchIndexDesignDocNameByIndex(indexArray);
-        delete mutateableQuery.index;
-        (mutateableQuery as any).use_index = indexName;
+        delete mutableQuery.index;
+        (mutableQuery as any).use_index = indexName;
     }
 
     query.selector = primarySwapPouchDbQuerySelector(query.selector, primaryKey);

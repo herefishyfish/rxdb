@@ -14,8 +14,8 @@ import type {
     PouchSettings,
     PouchWriteError,
     PreparedQuery,
-    RxConflictResultionTask,
-    RxConflictResultionTaskSolution,
+    RxConflictResolutionTask,
+    RxConflictResolutionTaskSolution,
     RxDocumentData,
     RxDocumentDataById,
     RxJsonSchema,
@@ -87,7 +87,7 @@ export class RxStorageInstancePouch<RxDocType> implements RxStorageInstance<
         /**
          * Instead of listening to pouch.changes,
          * we have overwritten pouchdbs bulkDocs()
-         * and create our own event stream, this will work more relyable
+         * and create our own event stream, this will work more reliable
          * and does not mix up with write events from other sources.
          */
         const emitter = getCustomEventEmitterByPouch<RxDocType>(this.internals.pouch);
@@ -242,7 +242,7 @@ export class RxStorageInstancePouch<RxDocType> implements RxStorageInstance<
                         pushObj = pouchSwapIdToPrimary(this.primaryPath, pushObj);
                         pushObj._rev = (resultRow as PouchBulkDocResultRow).rev;
 
-                        // replace the inserted attachments with their diggest
+                        // replace the inserted attachments with their digest
                         pushObj._attachments = {};
                         if (!writeRow.document._attachments) {
                             writeRow.document._attachments = {};
@@ -412,10 +412,10 @@ export class RxStorageInstancePouch<RxDocType> implements RxStorageInstance<
         }
     }
 
-    conflictResultionTasks(): Observable<RxConflictResultionTask<RxDocType>> {
+    conflictResolutionTasks(): Observable<RxConflictResolutionTask<RxDocType>> {
         return new Subject();
     }
-    async resolveConflictResultionTask(_taskSolution: RxConflictResultionTaskSolution<RxDocType>): Promise<void> { }
+    async resolveConflictResolutionTask(_taskSolution: RxConflictResolutionTaskSolution<RxDocType>): Promise<void> { }
 }
 
 

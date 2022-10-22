@@ -207,7 +207,7 @@ export function startReplicationDownstream<RxDocType, CheckpointType = any>(
         state.stats.down.persistFromMaster = state.stats.down.persistFromMaster + 1;
 
         /**
-         * Add the new docs to the non-persistend list
+         * Add the new docs to the non-persistent list
          */
         docs.forEach(docData => {
             const docId: string = (docData as any)[state.primaryPath];
@@ -387,7 +387,7 @@ export function startReplicationDownstream<RxDocType, CheckpointType = any>(
             }).then(() => {
                 /**
                  * For better performance we do not await checkpoint writes,
-                 * but to ensure order on parrallel checkpoint writes,
+                 * but to ensure order on parallel checkpoint writes,
                  * we have to use a queue.
                  */
                 state.checkpointQueue = state.checkpointQueue.then(() => setCheckpoint(

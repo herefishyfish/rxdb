@@ -145,7 +145,7 @@ export async function spawnServer(
 
     /**
      * Overwrite the defaults of PouchDBExpressServerOptions.
-     * In RxDB the defaults should not polute anything with folders so we store the config in memory
+     * In RxDB the defaults should not pollute anything with folders so we store the config in memory
      * and the logs in the tmp folder of the os.
      */
     const usePouchExpressOptions: PouchDBExpressServerOptions = flatClone(pouchdbExpressOptions);

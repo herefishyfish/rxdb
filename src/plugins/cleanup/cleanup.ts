@@ -10,7 +10,7 @@ import { DEFAULT_CLEANUP_POLICY } from './cleanup-helper';
  * The cleanup is a background task which should
  * not affect the performance of other, more important tasks.
  */
-let RXSOTRAGE_CLEANUP_QUEUE: Promise<boolean> = PROMISE_RESOLVE_TRUE;
+let RXSTORAGE_CLEANUP_QUEUE: Promise<boolean> = PROMISE_RESOLVE_TRUE;
 
 export async function startCleanupForRxCollection(
     rxCollection: RxCollection
@@ -77,14 +77,14 @@ export async function cleanupRxCollection(
         if (rxCollection.destroyed) {
             return;
         }
-        RXSOTRAGE_CLEANUP_QUEUE = RXSOTRAGE_CLEANUP_QUEUE
+        RXSTORAGE_CLEANUP_QUEUE = RXSTORAGE_CLEANUP_QUEUE
             .then(() => {
                 if (rxCollection.destroyed) {
                     return true;
                 }
                 return storageInstance.cleanup(cleanupPolicy.minimumDeletedTime);
             });
-        isDone = await RXSOTRAGE_CLEANUP_QUEUE;
+        isDone = await RXSTORAGE_CLEANUP_QUEUE;
     }
 }
 

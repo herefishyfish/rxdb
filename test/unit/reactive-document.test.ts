@@ -185,7 +185,7 @@ config.parallel('reactive-document.test.js', () => {
         });
     });
     describe('issues', () => {
-        it('#3434 event data must not be mutateable', async () => {
+        it('#3434 event data must not be mutable', async () => {
             const db = await createRxDatabase({
                 name: randomCouchString(10),
                 storage: getRxStoragePouch('memory'),

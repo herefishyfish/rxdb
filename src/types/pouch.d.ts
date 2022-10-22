@@ -109,7 +109,7 @@ export type PouchAllDocsOptions = {
     keys?: string[];
     update_seq?: string;
 
-    // undocument but needed
+    // undocumented but needed
     revs?: boolean;
     deleted?: 'ok';
 };

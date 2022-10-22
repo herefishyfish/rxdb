@@ -256,12 +256,12 @@ export class RxCollectionBase<
          */
         this._subs.push(
             this.storageInstance
-                .conflictResultionTasks()
+                .conflictResolutionTasks()
                 .subscribe(task => {
                     this
                         .conflictHandler(task.input, task.context)
                         .then(output => {
-                            this.storageInstance.resolveConflictResultionTask({
+                            this.storageInstance.resolveConflictResolutionTask({
                                 id: task.id,
                                 output
                             });
@@ -273,7 +273,7 @@ export class RxCollectionBase<
     }
 
 
-    // overwritte by migration-plugin
+    // overwritten by migration-plugin
     migrationNeeded(): Promise<boolean> {
         throw pluginMissing('migration');
     }
@@ -553,7 +553,7 @@ export class RxCollectionBase<
                 queryObj = _getDefaultQuery();
             }
 
-            // cannot have limit on findOne queries because it will be overwritte
+            // cannot have limit on findOne queries because it will be overwritten
             if ((queryObj as MangoQuery).limit) {
                 throw newRxError('QU6');
             }
@@ -631,7 +631,7 @@ export class RxCollectionBase<
             startWith(null),
             /**
              * Optimization shortcut.
-             * Do not proceed if the emited RxChangeEvent
+             * Do not proceed if the emitted RxChangeEvent
              * is not relevant for the query.
              */
             filter(changeEvent => {
@@ -653,7 +653,7 @@ export class RxCollectionBase<
             mergeMap(() => initialPromise),
             /**
              * Because shareReplay with refCount: true
-             * will often subscribe/unsusbscribe
+             * will often subscribe/unsubscribe
              * we always ensure that we handled all missed events
              * since the last subscription.
              */

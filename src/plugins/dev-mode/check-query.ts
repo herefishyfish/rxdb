@@ -10,7 +10,7 @@ import {
 } from 'pouchdb-selector-core';
 
 /**
- * accidentially passing a non-valid object into the query params
+ * accidentally passing a non-valid object into the query params
  * is very hard to debug especially when queries are observed
  * This is why we do some checks here in dev-mode
  */

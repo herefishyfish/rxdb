@@ -128,7 +128,7 @@ export function calculateNewResults<RxDocumentType>(
     const eventReduceEvents: ChangeEvent<RxDocumentType>[] = rxChangeEvents
         .map(cE => rxChangeEventToEventReduceChangeEvent(cE))
         .filter(arrayFilterNotEmpty);
-    const foundNonOptimizeable = eventReduceEvents.find(eventReduceEvent => {
+    const foundNonOptimizable = eventReduceEvents.find(eventReduceEvent => {
         const stateResolveFunctionInput: StateResolveFunctionInput<RxDocumentType> = {
             queryParams,
             changeEvent: eventReduceEvent,
@@ -151,7 +151,7 @@ export function calculateNewResults<RxDocumentType>(
             return false;
         }
     });
-    if (foundNonOptimizeable) {
+    if (foundNonOptimizable) {
         return {
             runFullQueryAgain: true,
         };

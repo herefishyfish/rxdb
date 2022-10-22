@@ -44,8 +44,8 @@ import {
 import { newRxError } from '../../rx-error';
 import {
     DEFAULT_MODIFIER,
-    swapDefaultDeletedTodeletedField,
-    swapdeletedFieldToDefaultDeleted
+    swapDefaultDeletedToDeletedField,
+    swapDeletedFieldToDefaultDeleted
 } from './replication-helper';
 import { addConnectedStorageToCollection } from '../../rx-database-internal-store';
 
@@ -164,7 +164,7 @@ export class RxReplicationState<RxDocType, CheckpointType> {
                         }
                         const useEv = flatClone(ev);
                         if (this.deletedField !== '_deleted') {
-                            useEv.documents = useEv.documents.map(doc => swapdeletedFieldToDefaultDeleted(this.deletedField, doc))
+                            useEv.documents = useEv.documents.map(doc => swapDeletedFieldToDefaultDeleted(this.deletedField, doc))
                         }
                         useEv.documents = await Promise.all(
                             useEv.documents.map(d => pullModifier(d))
@@ -210,7 +210,7 @@ export class RxReplicationState<RxDocType, CheckpointType> {
 
                     const useResult = flatClone(result);
                     if (this.deletedField !== '_deleted') {
-                        useResult.documents = useResult.documents.map(doc => swapdeletedFieldToDefaultDeleted(this.deletedField, doc))
+                        useResult.documents = useResult.documents.map(doc => swapDeletedFieldToDefaultDeleted(this.deletedField, doc))
                     }
                     useResult.documents = await Promise.all(
                         useResult.documents.map(d => pullModifier(d))
@@ -233,9 +233,9 @@ export class RxReplicationState<RxDocType, CheckpointType> {
                             }
 
                             if (this.deletedField !== '_deleted') {
-                                row.newDocumentState = swapDefaultDeletedTodeletedField(this.deletedField, row.newDocumentState) as any;
+                                row.newDocumentState = swapDefaultDeletedToDeletedField(this.deletedField, row.newDocumentState) as any;
                                 if (row.assumedMasterState) {
-                                    row.assumedMasterState = swapDefaultDeletedTodeletedField(this.deletedField, row.assumedMasterState) as any;
+                                    row.assumedMasterState = swapDefaultDeletedToDeletedField(this.deletedField, row.assumedMasterState) as any;
                                 }
                             }
 
@@ -260,7 +260,7 @@ export class RxReplicationState<RxDocType, CheckpointType> {
                     }
 
 
-                    const conflicts = ensureNotFalsy(result).map(doc => swapdeletedFieldToDefaultDeleted(this.deletedField, doc));
+                    const conflicts = ensureNotFalsy(result).map(doc => swapDeletedFieldToDefaultDeleted(this.deletedField, doc));
                     return conflicts;
                 }
             }

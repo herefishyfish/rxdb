@@ -15,8 +15,8 @@ import {
 import type {
     BulkWriteRow,
     EventBulk,
-    RxConflictResultionTask,
-    RxConflictResultionTaskSolution,
+    RxConflictResolutionTask,
+    RxConflictResolutionTaskSolution,
     RxDocumentData,
     RxDocumentDataById,
     RxJsonSchema,
@@ -405,10 +405,10 @@ export class RxStorageInstanceMemory<RxDocType> implements RxStorageInstance<
         return PROMISE_RESOLVE_VOID;
     }
 
-    conflictResultionTasks(): Observable<RxConflictResultionTask<RxDocType>> {
-        return this.internals.conflictResultionTasks$.asObservable();
+    conflictResolutionTasks(): Observable<RxConflictResolutionTask<RxDocType>> {
+        return this.internals.conflictResolutionTasks$.asObservable();
     }
-    resolveConflictResultionTask(_taskSolution: RxConflictResultionTaskSolution<RxDocType>): Promise<void> {
+    resolveConflictResolutionTask(_taskSolution: RxConflictResolutionTaskSolution<RxDocType>): Promise<void> {
         return PROMISE_RESOLVE_VOID;
     }
 }
@@ -428,7 +428,7 @@ export function createMemoryStorageInstance<RxDocType>(
             documents: new Map(),
             attachments: params.schema.attachments ? new Map() : undefined as any,
             byIndex: {},
-            conflictResultionTasks$: new Subject()
+            conflictResolutionTasks$: new Subject()
         };
         addIndexesToInternalsState(internals, params.schema);
         storage.collectionStates.set(collectionKey, internals);

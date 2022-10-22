@@ -507,7 +507,7 @@ function __ensureEqual(rxQuery: RxQueryBase): Promise<boolean> {
     if (
         // db is closed
         rxQuery.collection.database.destroyed ||
-        // nothing happend since last run
+        // nothing happened since last run
         _isResultsInSync(rxQuery)
     ) {
         return PROMISE_RESOLVE_FALSE;
@@ -572,7 +572,7 @@ function __ensureEqual(rxQuery: RxQueryBase): Promise<boolean> {
 /**
  * Runs the query over the storage instance
  * of the collection.
- * Does some optimizations to ensuer findById is used
+ * Does some optimizations to ensure findById is used
  * when specific queries are used.
  */
 export async function queryCollection<RxDocType>(

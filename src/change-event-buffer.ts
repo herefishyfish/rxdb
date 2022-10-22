@@ -45,7 +45,7 @@ export class ChangeEventBuffer {
 
     /**
      * gets the array-index for the given pointer
-     * @return arrayIndex which can be used to itterate from there. If null, pointer is out of lower bound
+     * @return arrayIndex which can be used to iterate from there. If null, pointer is out of lower bound
      */
     getArrayIndexByPointer(pointer: number): number | null {
         const oldestEvent = this.buffer[0];

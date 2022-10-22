@@ -126,7 +126,7 @@ const RxLocalDocumentPrototype: any = {
             this._atomicQueue = this._atomicQueue
                 .then(async () => {
                     let done = false;
-                    // we need a hacky while loop to stay incide the chain-link of _atomicQueue
+                    // we need a hacky while loop to stay inside the chain-link of _atomicQueue
                     // while still having the option to run a retry on conflicts
                     while (!done) {
                         const oldDocData = this._dataSync$.getValue();

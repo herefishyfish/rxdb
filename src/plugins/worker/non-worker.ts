@@ -21,8 +21,8 @@ import type {
     EventBulk,
     RxStorageStatics,
     RxDocumentDataById,
-    RxConflictResultionTask,
-    RxConflictResultionTaskSolution
+    RxConflictResolutionTask,
+    RxConflictResolutionTaskSolution
 } from '../../types';
 import {
     ensureNotFalsy,
@@ -105,7 +105,7 @@ export class RxStorageInstanceWorker<RxDocType> implements RxStorageInstance<
      * so we have to transform it.
      */
     private changes$: Subject<EventBulk<RxStorageChangeEvent<RxDocumentData<RxDocType>>, any>> = new Subject();
-    private conflicts$: Subject<RxConflictResultionTask<RxDocType>> = new Subject();
+    private conflicts$: Subject<RxConflictResolutionTask<RxDocType>> = new Subject();
     private subs: Subscription[] = [];
 
     private closed: boolean = false;
@@ -124,7 +124,7 @@ export class RxStorageInstanceWorker<RxDocType> implements RxStorageInstance<
             ).subscribe(ev => this.changes$.next(ev as any))
         );
         this.subs.push(
-            this.internals.worker.conflictResultionTasks(
+            this.internals.worker.conflictResolutionTasks(
                 this.internals.instanceId
             ).subscribe(ev => this.conflicts$.next(ev as any))
         );
@@ -201,10 +201,10 @@ export class RxStorageInstanceWorker<RxDocType> implements RxStorageInstance<
         await removeWorkerRef(this);
     }
 
-    conflictResultionTasks(): Observable<RxConflictResultionTask<RxDocType>> {
+    conflictResolutionTasks(): Observable<RxConflictResolutionTask<RxDocType>> {
         return new Subject();
     }
-    async resolveConflictResultionTask(_taskSolution: RxConflictResultionTaskSolution<RxDocType>): Promise<void> { }
+    async resolveConflictResolutionTask(_taskSolution: RxConflictResolutionTaskSolution<RxDocType>): Promise<void> { }
 
 }
 

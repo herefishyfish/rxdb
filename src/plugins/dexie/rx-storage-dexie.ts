@@ -35,12 +35,12 @@ import { DEFAULT_CHECKPOINT_SCHEMA } from '../../rx-schema-helper';
 export const RxStorageDexieStatics: RxStorageStatics = {
     prepareQuery<RxDocType>(
         schema: RxJsonSchema<RxDocumentData<RxDocType>>,
-        mutateableQuery: FilledMangoQuery<RxDocType>
+        mutableQuery: FilledMangoQuery<RxDocType>
     ): DexiePreparedQuery<RxDocType> {
 
-        if (!mutateableQuery.sort) {
+        if (!mutableQuery.sort) {
             throw newRxError('SNH', {
-                query: mutateableQuery
+                query: mutableQuery
             });
         }
 
@@ -50,11 +50,11 @@ export const RxStorageDexieStatics: RxStorageStatics = {
          */
         const queryPlan = getQueryPlan(
             schema,
-            mutateableQuery
+            mutableQuery
         );
 
         return {
-            query: mutateableQuery,
+            query: mutableQuery,
             queryPlan
         };
     },

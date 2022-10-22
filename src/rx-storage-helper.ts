@@ -696,12 +696,12 @@ export function getWrappedStorageInstance<
         changeStream() {
             return storageInstance.changeStream();
         },
-        conflictResultionTasks() {
-            return storageInstance.conflictResultionTasks();
+        conflictResolutionTasks() {
+            return storageInstance.conflictResolutionTasks();
         },
-        resolveConflictResultionTask(taskSolution) {
+        resolveConflictResolutionTask(taskSolution) {
             if (taskSolution.output.isEqual) {
-                return storageInstance.resolveConflictResultionTask(taskSolution);
+                return storageInstance.resolveConflictResolutionTask(taskSolution);
             }
 
             const doc = Object.assign(
@@ -719,7 +719,7 @@ export function getWrappedStorageInstance<
             delete (documentData as any)._rev;
             delete (documentData as any)._attachments;
 
-            return storageInstance.resolveConflictResultionTask({
+            return storageInstance.resolveConflictResolutionTask({
                 id: taskSolution.id,
                 output: {
                     isEqual: false,

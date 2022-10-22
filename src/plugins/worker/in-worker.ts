@@ -5,8 +5,8 @@
 import type {
     BulkWriteRow,
     EventBulk,
-    RxConflictResultionTask,
-    RxConflictResultionTaskSolution,
+    RxConflictResolutionTask,
+    RxConflictResolutionTaskSolution,
     RxDocumentData,
     RxDocumentDataById,
     RxStorage,
@@ -57,12 +57,12 @@ export type InWorkerStorage<RxDocType, CheckpointType> = {
     close(instanceId: number): Promise<void>;
     remove(instanceId: number): Promise<void>;
 
-    conflictResultionTasks(
+    conflictResolutionTasks(
         instanceById: number
-    ): Observable<RxConflictResultionTask<RxDocType>>;
-    resolveConflictResultionTask(
+    ): Observable<RxConflictResolutionTask<RxDocType>>;
+    resolveConflictResolutionTask(
         instanceById: number,
-        taskSolution: RxConflictResultionTaskSolution<RxDocType>
+        taskSolution: RxConflictResolutionTaskSolution<RxDocType>
     ): Promise<void>;
 }
 
@@ -154,18 +154,18 @@ export function wrappedWorkerRxStorage<T, D, CheckpointType = any>(
             return instance.remove();
         },
 
-        conflictResultionTasks<RxDocType>(
+        conflictResolutionTasks<RxDocType>(
             instanceId: number
-        ): Observable<RxConflictResultionTask<RxDocType>> {
+        ): Observable<RxConflictResolutionTask<RxDocType>> {
             const instance = getFromMapOrThrow(instanceById, instanceId);
-            return instance.conflictResultionTasks();
+            return instance.conflictResolutionTasks();
         },
-        resolveConflictResultionTask<RxDocType>(
+        resolveConflictResolutionTask<RxDocType>(
             instanceId: number,
-            taskSolution: RxConflictResultionTaskSolution<RxDocType>
+            taskSolution: RxConflictResolutionTaskSolution<RxDocType>
         ): Promise<void> {
             const instance = getFromMapOrThrow(instanceById, instanceId);
-            return instance.resolveConflictResultionTask(taskSolution);
+            return instance.resolveConflictResolutionTask(taskSolution);
         }
     }
     expose(exposeMe);

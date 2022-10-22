@@ -39,7 +39,7 @@ module.exports = {
     module: {
         rules: [
             /**
-             * We transpile the typscript via babel instead of ts-loader.
+             * We transpile the typescript via babel instead of ts-loader.
              * This ensures we have the exact same babel config
              * as the root RxDB project.
              */

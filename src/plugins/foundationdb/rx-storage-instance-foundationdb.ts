@@ -5,8 +5,8 @@ import type {
     CategorizeBulkWriteRowsOutput,
     EventBulk,
     RxAttachmentWriteData,
-    RxConflictResultionTask,
-    RxConflictResultionTaskSolution,
+    RxConflictResolutionTask,
+    RxConflictResolutionTaskSolution,
     RxDocumentData,
     RxDocumentDataById,
     RxJsonSchema,
@@ -352,10 +352,10 @@ export class RxStorageInstanceFoundationDB<RxDocType> implements RxStorageInstan
         return noMoreUndeleted;
     }
 
-    conflictResultionTasks(): Observable<RxConflictResultionTask<RxDocType>> {
+    conflictResolutionTasks(): Observable<RxConflictResolutionTask<RxDocType>> {
         return new Subject<any>().asObservable();
     }
-    resolveConflictResultionTask(_taskSolution: RxConflictResultionTaskSolution<RxDocType>): Promise<void> {
+    resolveConflictResolutionTask(_taskSolution: RxConflictResolutionTaskSolution<RxDocType>): Promise<void> {
         return PROMISE_RESOLVE_VOID;
     }
 
@@ -372,7 +372,7 @@ export class RxStorageInstanceFoundationDB<RxDocType> implements RxStorageInstan
         const dbs = await this.internals.dbsPromise;
         dbs.root.close();
 
-        // TODO shouldnt we close the index databases?
+        // TODO shouldn't we close the index databases?
         // Object.values(dbs.indexes).forEach(db => db.close());
     }
 }

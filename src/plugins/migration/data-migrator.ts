@@ -4,7 +4,7 @@
  */
 /**
  * TODO this should be completely rewritten because:
- * - This could have been done in much less code which would be easier to uderstand
+ * - This could have been done in much less code which would be easier to understand
  *
  */
 import {
@@ -95,7 +95,7 @@ export class DataMigrator {
             done: false, // true if finished
             total: 0, // will be the doc-count
             handled: 0, // amount of handled docs
-            success: 0, // handled docs which successed
+            success: 0, // handled docs which succeeded
             deleted: 0, // handled docs which got deleted
             percent: 0 // percentage
         };
@@ -392,13 +392,13 @@ export function migrateDocumentData(
      * and attach it to the deep cloned document data.
      */
     const attachmentsBefore = flatClone(docData._attachments);
-    const mutateableDocData = clone(docData);
-    mutateableDocData._attachments = attachmentsBefore;
+    const mutableDocData = clone(docData);
+    mutableDocData._attachments = attachmentsBefore;
 
     let nextVersion = oldCollection.version + 1;
 
-    // run the document throught migrationStrategies
-    let currentPromise = Promise.resolve(mutateableDocData);
+    // run the document through migrationStrategies
+    let currentPromise = Promise.resolve(mutableDocData);
     while (nextVersion <= oldCollection.newestCollection.schema.version) {
         const version = nextVersion;
         currentPromise = currentPromise.then(docOrNull => runStrategyIfNotNull(
@@ -481,7 +481,7 @@ export async function _migrateDocuments(
         actions.push(action);
 
         /**
-         * Determiniticly handle the revision
+         * Deterministically handle the revision
          * so migrating the same data on multiple instances
          * will result in the same output.
          */

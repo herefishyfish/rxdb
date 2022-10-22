@@ -32,24 +32,24 @@ import { DEFAULT_CHECKPOINT_SCHEMA } from '../../rx-schema-helper';
 export const RxStorageLokiStatics: RxStorageStatics = {
     prepareQuery<RxDocType>(
         _schema: RxJsonSchema<RxDocumentData<RxDocType>>,
-        mutateableQuery: MangoQuery<RxDocType>
+        mutableQuery: MangoQuery<RxDocType>
     ) {
-        if (Object.keys(ensureNotFalsy(mutateableQuery.selector)).length > 0) {
-            mutateableQuery.selector = {
+        if (Object.keys(ensureNotFalsy(mutableQuery.selector)).length > 0) {
+            mutableQuery.selector = {
                 $and: [
                     {
                         _deleted: false
                     },
-                    mutateableQuery.selector
+                    mutableQuery.selector
                 ]
             };
         } else {
-            mutateableQuery.selector = {
+            mutableQuery.selector = {
                 _deleted: false
             };
         }
 
-        return mutateableQuery;
+        return mutableQuery;
     },
 
 

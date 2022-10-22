@@ -2,7 +2,7 @@ import { Subject } from 'rxjs';
 import type {
     DexiePreparedQuery,
     RxAttachmentWriteData,
-    RxConflictResultionTask,
+    RxConflictResolutionTask,
     RxDocumentData,
     RxStorage
 } from '../../types';
@@ -30,7 +30,7 @@ export type MemoryStorageInternals<RxDocType> = {
     /**
      * We re-use the memory state when multiple instances
      * are created with the same params.
-     * If refCount beomces 0, we can delete the state.
+     * If refCount becomes 0, we can delete the state.
      */
     refCount: number;
     /**
@@ -52,7 +52,7 @@ export type MemoryStorageInternals<RxDocType> = {
          * of each document is unique, because it contains the primaryKey
          * as last index part.
          * So we do not have to store the index-position when we want to do fast
-         * writes. Instead we can do a binary search over the exisiting array
+         * writes. Instead we can do a binary search over the existing array
          * because RxDB also knows the previous state of the document when we do a bulkWrite().
          */
         [indexName: string]: MemoryStorageInternalsByIndex<RxDocType>;
@@ -63,7 +63,7 @@ export type MemoryStorageInternals<RxDocType> = {
      * the memory storage exposes the conflict resolution task subject
      * so that we can inject own tasks during tests.
      */
-    conflictResultionTasks$: Subject<RxConflictResultionTask<RxDocType>>;
+    conflictResolutionTasks$: Subject<RxConflictResolutionTask<RxDocType>>;
 };
 
 export type DocWithIndexString<RxDocType> = {

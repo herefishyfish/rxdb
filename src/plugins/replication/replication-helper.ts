@@ -7,7 +7,7 @@ import { flatClone } from '../../util';
 export const DEFAULT_MODIFIER = (d: any) => Promise.resolve(d);
 
 
-export function swapDefaultDeletedTodeletedField<RxDocType>(
+export function swapDefaultDeletedToDeletedField<RxDocType>(
     deletedField: string,
     doc: WithDeleted<RxDocType>
 ): RxDocType {
@@ -23,7 +23,7 @@ export function swapDefaultDeletedTodeletedField<RxDocType>(
 }
 
 
-export function swapdeletedFieldToDefaultDeleted<RxDocType>(
+export function swapDeletedFieldToDefaultDeleted<RxDocType>(
     deletedField: string,
     doc: RxDocType
 ): WithDeleted<RxDocType> {

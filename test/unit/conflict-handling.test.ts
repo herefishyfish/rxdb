@@ -18,7 +18,7 @@ import { HumanDocumentType } from '../helper/schemas';
 
 config.parallel('conflict-handling.test.js', () => {
     describe('RxStorageInterface', () => {
-        it('should resolve the emitted conflict of conflictResultionTasks()', async () => {
+        it('should resolve the emitted conflict of conflictResolutionTasks()', async () => {
             const db = await createRxDatabase({
                 name: randomCouchString(10),
                 storage: getRxStorageMemory(),
@@ -32,15 +32,15 @@ config.parallel('conflict-handling.test.js', () => {
             const doc = await collection.insert(schemaObjects.human());
             const docData = doc.toJSON(true);
             const storageInstance: RxStorageInstanceMemory<HumanDocumentType> = collection.storageInstance as any;
-            const oldResolveConflictResultionTask = storageInstance.resolveConflictResultionTask.bind(storageInstance);
+            const oldResolveConflictResolutionTask = storageInstance.resolveConflictResolutionTask.bind(storageInstance);
             const resolvedTasks = new Set<string>();
-            storageInstance.resolveConflictResultionTask = function (taskSolution) {
+            storageInstance.resolveConflictResolutionTask = function (taskSolution) {
                 resolvedTasks.add(taskSolution.id);
-                return oldResolveConflictResultionTask(taskSolution);
+                return oldResolveConflictResolutionTask(taskSolution);
             }
 
             const taskId = randomCouchString();
-            storageInstance.internals.conflictResultionTasks$.next({
+            storageInstance.internals.conflictResolutionTasks$.next({
                 id: taskId,
                 context: '',
                 input: {

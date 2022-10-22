@@ -41,8 +41,8 @@ export const basePrototype = {
 
     /**
      * TODO
-     * instead of appliying the _this-hack
-     * we should make these accesors functions instead of getters.
+     * instead of applying the _this-hack
+     * we should make these accessors functions instead of getters.
      */
     get _data() {
         const _this: RxDocument = this as any;
@@ -256,7 +256,7 @@ export const basePrototype = {
 
     /**
      * updates document
-     * @overwritten by plugin (optinal)
+     * @overwritten by plugin (optional)
      * @param updateObj mongodb-like syntax
      */
     update(_updateObj: any) {
@@ -286,7 +286,7 @@ export const basePrototype = {
                 ._atomicQueue
                 .then(async () => {
                     let done = false;
-                    // we need a hacky while loop to stay incide the chain-link of _atomicQueue
+                    // we need a hacky while loop to stay inside the chain-link of _atomicQueue
                     // while still having the option to run a retry on conflicts
                     while (!done) {
                         const oldData = this._dataSync$.getValue();

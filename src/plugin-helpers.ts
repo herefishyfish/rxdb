@@ -265,9 +265,9 @@ export function wrapRxStorageInstance<RxDocType>(
         )
     };
 
-    const oldConflictResultionTasks = instance.conflictResultionTasks.bind(instance);
-    instance.conflictResultionTasks = () => {
-        return oldConflictResultionTasks().pipe(
+    const oldConflictResolutionTasks = instance.conflictResolutionTasks.bind(instance);
+    instance.conflictResolutionTasks = () => {
+        return oldConflictResolutionTasks().pipe(
             mergeMap(async (task) => {
                 const assumedMasterState = await fromStorage(task.input.assumedMasterState);
                 const newDocumentState = await fromStorage(task.input.newDocumentState);
@@ -285,10 +285,10 @@ export function wrapRxStorageInstance<RxDocType>(
         );
     }
 
-    const oldResolveConflictResultionTask = instance.resolveConflictResultionTask.bind(instance);
-    instance.resolveConflictResultionTask = (taskSolution) => {
+    const oldResolveConflictResolutionTask = instance.resolveConflictResolutionTask.bind(instance);
+    instance.resolveConflictResolutionTask = (taskSolution) => {
         if (taskSolution.output.isEqual) {
-            return oldResolveConflictResultionTask(taskSolution);
+            return oldResolveConflictResolutionTask(taskSolution);
         }
         const useSolution = {
             id: taskSolution.id,
@@ -297,7 +297,7 @@ export function wrapRxStorageInstance<RxDocType>(
                 documentData: taskSolution.output.documentData
             }
         };
-        return oldResolveConflictResultionTask(useSolution);
+        return oldResolveConflictResolutionTask(useSolution);
     }
 
     return instance;

@@ -30,7 +30,7 @@ export type RxConflictHandler<RxDocType> = (
     context: string
 ) => Promise<RxConflictHandlerOutput<RxDocType>>;
 
-export type RxConflictResultionTask<RxDocType> = {
+export type RxConflictResolutionTask<RxDocType> = {
     /**
      * Unique id for that single task.
      */
@@ -45,9 +45,9 @@ export type RxConflictResultionTask<RxDocType> = {
 };
 
 
-export type RxConflictResultionTaskSolution<RxDocType> = {
+export type RxConflictResolutionTaskSolution<RxDocType> = {
     /**
-     * Id of the RxConflictResultionTask
+     * Id of the RxConflictResolutionTask
      */
     id: string;
     output: RxConflictHandlerOutput<RxDocType>;

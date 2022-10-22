@@ -103,9 +103,9 @@ export function defaultHashFunction(input: string): string {
 }
 
 /**
- * Returns the current unix time in milliseconds (with two decmials!)
+ * Returns the current unix time in milliseconds (with two decimals!)
  * Because the accuracy of getTime() in javascript is bad,
- * and we cannot rely on performance.now() on all plattforms,
+ * and we cannot rely on performance.now() on all platforms,
  * this method implements a way to never return the same value twice.
  * This ensures that when now() is called often, we do not loose the information
  * about which call came first and which came after.
@@ -468,8 +468,8 @@ export function createRevision<RxDocType>(
 ): string {
 
     const previousRevision = previousDocData ? previousDocData._rev : null;
-    const previousRevisionHeigth = previousRevision ? parseRevision(previousRevision).height : 0;
-    const newRevisionHeight = previousRevisionHeigth + 1;
+    const previousRevisionHeight = previousRevision ? parseRevision(previousRevision).height : 0;
+    const newRevisionHeight = previousRevisionHeight + 1;
 
 
     const docWithoutRev: any = Object.assign({}, docData, {
@@ -498,9 +498,9 @@ export function createRevision<RxDocType>(
     delete docWithoutRev._rev;
     docWithoutRev._rev = previousDocData ? newRevisionHeight : 1;
 
-    const diggestString = JSON.stringify(docWithoutRev);
+    const digestString = JSON.stringify(docWithoutRev);
 
-    const revisionHash = hashFunction(diggestString);
+    const revisionHash = hashFunction(digestString);
     return newRevisionHeight + '-' + revisionHash;
 }
 
@@ -659,7 +659,7 @@ export const blobBufferUtil = {
     },
     toString(blobBuffer: BlobBuffer | string): Promise<string> {
         /**
-         * in the electron-renderer we have a typed array insteaf of a blob
+         * in the electron-renderer we have a typed array instead of a blob
          * so we have to transform it.
          * @link https://github.com/pubkey/rxdb/issues/1371
          */
@@ -679,7 +679,7 @@ export const blobBufferUtil = {
         }
 
         /**
-         * in the electron-renderer we have a typed array insteaf of a blob
+         * in the electron-renderer we have a typed array instead of a blob
          * so we have to transform it.
          * @link https://github.com/pubkey/rxdb/issues/1371
          */

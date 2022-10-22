@@ -140,7 +140,7 @@ export type RxAttachmentWriteData = RxAttachmentData & {
 
 
 /**
- * Error that can happer per document when
+ * Error that can happen per document when
  * RxStorage.bulkWrite() is called
  */
 export type RxStorageBulkWriteError<RxDocType> = {
@@ -179,7 +179,7 @@ export type RxStorageBulkWriteError<RxDocType> = {
 export type RxStorageBulkWriteResponse<RxDocType> = {
     /**
      * A map that is indexed by the documentId
-     * contains all succeded writes.
+     * contains all successful writes.
      */
     success: RxDocumentDataById<RxDocType>;
 
@@ -253,7 +253,7 @@ export type ChangeStreamOptions = {
 /**
  * In the past we handles each RxChangeEvent by its own.
  * But it has been shown that this take way more performance then needed,
- * especially when the events get transfered over a data layer
+ * especially when the events get transferred over a data layer
  * like with WebWorkers or the BroadcastChannel.
  * So we now process events as bulks internally.
  */
@@ -269,7 +269,7 @@ export type EventBulk<EventType, CheckpointType> = {
     /**
      * Required for replication.
      * Passing this checkpoint into getChangedDocumentsSince()
-     * must return all items that have been modied AFTER this write event.
+     * must return all items that have been modified AFTER this write event.
      */
     checkpoint: CheckpointType;
 

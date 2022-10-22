@@ -105,7 +105,7 @@ export function syncGraphQL<RxDocType, CheckpointType>(
      * We use this object to store the GraphQL client
      * so we can later swap out the client inside of the replication handlers.
      */
-    const mutateableClientState = {
+    const mutableClientState = {
         headers,
         credentials,
         client: GraphQLClient({
@@ -126,7 +126,7 @@ export function syncGraphQL<RxDocType, CheckpointType>(
                 lastPulledCheckpoint: CheckpointType
             ) {
                 const pullGraphQL = await pull.queryBuilder(lastPulledCheckpoint, pullBatchSize);
-                const result = await mutateableClientState.client.query(pullGraphQL.query, pullGraphQL.variables);
+                const result = await mutableClientState.client.query(pullGraphQL.query, pullGraphQL.variables);
                 if (result.errors) {
                     throw result.errors;
                 }
@@ -162,7 +162,7 @@ export function syncGraphQL<RxDocType, CheckpointType>(
                 rows: RxReplicationWriteToMasterRow<RxDocType>[]
             ) {
                 const pushObj = await push.queryBuilder(rows);
-                const result = await mutateableClientState.client.query(pushObj.query, pushObj.variables);
+                const result = await mutableClientState.client.query(pushObj.query, pushObj.variables);
 
                 if (result.errors) {
                     throw result.errors;
@@ -178,7 +178,7 @@ export function syncGraphQL<RxDocType, CheckpointType>(
 
     const graphqlReplicationState = new RxGraphQLReplicationState(
         url,
-        mutateableClientState,
+        mutableClientState,
         GRAPHQL_REPLICATION_PLUGIN_IDENTITY_PREFIX + fastUnsecureHash(url.http ? url.http : url.ws as any),
         collection,
         deletedField,
@@ -203,7 +203,7 @@ export function syncGraphQL<RxDocType, CheckpointType>(
                 pullStream$.next('RESYNC');
             });
 
-            const query: any = ensureNotFalsy(pull.streamQueryBuilder)(mutateableClientState.headers);
+            const query: any = ensureNotFalsy(pull.streamQueryBuilder)(mutableClientState.headers);
 
             wsClient.subscribe(
                 query,

@@ -31,8 +31,8 @@ import type {
     StringKeys,
     RxDocumentDataById,
     DeepReadonly,
-    RxConflictResultionTask,
-    RxConflictResultionTaskSolution,
+    RxConflictResolutionTask,
+    RxConflictResolutionTaskSolution,
     RxStorageDefaultCheckpoint
 } from '../../types';
 import {
@@ -101,13 +101,13 @@ export class RxStorageInstanceLoki<RxDocType> implements RxStorageInstance<
                 findDocumentsById: this.findDocumentsById.bind(this),
                 collectionName: this.collectionName,
                 databaseName: this.databaseName,
-                conflictResultionTasks: this.conflictResultionTasks.bind(this),
+                conflictResolutionTasks: this.conflictResolutionTasks.bind(this),
                 getAttachmentData: this.getAttachmentData.bind(this),
                 getChangedDocumentsSince: this.getChangedDocumentsSince.bind(this),
                 internals: this.internals,
                 options: this.options,
                 remove: this.remove.bind(this),
-                resolveConflictResultionTask: this.resolveConflictResultionTask.bind(this),
+                resolveConflictResolutionTask: this.resolveConflictResolutionTask.bind(this),
                 schema: this.schema
             }
 
@@ -357,10 +357,10 @@ export class RxStorageInstanceLoki<RxDocType> implements RxStorageInstance<
         return this.close();
     }
 
-    conflictResultionTasks(): Observable<RxConflictResultionTask<RxDocType>> {
+    conflictResolutionTasks(): Observable<RxConflictResolutionTask<RxDocType>> {
         return new Subject();
     }
-    async resolveConflictResultionTask(_taskSolution: RxConflictResultionTaskSolution<RxDocType>): Promise<void> { }
+    async resolveConflictResolutionTask(_taskSolution: RxConflictResolutionTaskSolution<RxDocType>): Promise<void> { }
 
 }
 

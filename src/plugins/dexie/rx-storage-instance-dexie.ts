@@ -22,8 +22,8 @@ import type {
     EventBulk,
     StringKeys,
     RxDocumentDataById,
-    RxConflictResultionTask,
-    RxConflictResultionTaskSolution,
+    RxConflictResolutionTask,
+    RxConflictResolutionTaskSolution,
     RxStorageDefaultCheckpoint,
     CategorizeBulkWriteRowsOutput
 } from '../../types';
@@ -310,10 +310,10 @@ export class RxStorageInstanceDexie<RxDocType> implements RxStorageInstance<
         return PROMISE_RESOLVE_VOID;
     }
 
-    conflictResultionTasks(): Observable<RxConflictResultionTask<RxDocType>> {
+    conflictResolutionTasks(): Observable<RxConflictResolutionTask<RxDocType>> {
         return new Subject();
     }
-    async resolveConflictResultionTask(_taskSolution: RxConflictResultionTaskSolution<RxDocType>): Promise<void> { }
+    async resolveConflictResolutionTask(_taskSolution: RxConflictResolutionTaskSolution<RxDocType>): Promise<void> { }
 
 }
 
